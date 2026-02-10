@@ -1,57 +1,37 @@
-// let clickCount = 0;
-
-// function typeText(element, text, speed = 65) {
-//   element.innerHTML = "";
-//   element.classList.remove("glow");
-//   let i = 0;
-
-//   const typing = setInterval(() => {
-//     if (i < text.length) {
-//       element.innerHTML += text.charAt(i);
-//       i++;
-//     } else {
-//       clearInterval(typing);
-//       element.classList.add("glow");
-//     }
-//   }, speed);
-// }
-
-// function handleClick() {
-//   const textEl = document.getElementById("loveText");
-//   const btn = document.getElementById("loveBtn");
-
-//   clickCount++;
-
-//   if (clickCount === 1) {
-//     textEl.className = "text-effect";
-//     typeText(textEl, "ดีใจนะ ที่ได้คุยกับที่รัก 🌸");
-//     btn.innerHTML = "กดอีกที 😊";
-//   } else if (clickCount === 2) {
-//     textEl.className = "text-effect";
-//     typeText(textEl, "ถ้าที่รักยังอยากคุย… เค้าก็อยากคุยเหมือนกันนะ 💗", 65);
-//     btn.style.display = "none";
-//   }
-// }
-
 let clickCount = 0;
+let typingInterval = null;
+let isTyping = false;
 
-function typeText(element, text, speed = 65) {
+function typeText(element, text, speed = 65, callback) {
+  // หยุดการพิมพ์เก่าทันทีถ้ามี
+  if (typingInterval) {
+    clearInterval(typingInterval);
+    typingInterval = null;
+  }
+
   element.innerHTML = "";
   element.classList.remove("glow");
-  let i = 0;
+  isTyping = true;
 
-  const typing = setInterval(() => {
+  let i = 0;
+  typingInterval = setInterval(() => {
     if (i < text.length) {
       element.innerHTML += text.charAt(i);
       i++;
     } else {
-      clearInterval(typing);
+      clearInterval(typingInterval);
+      typingInterval = null;
       element.classList.add("glow");
+      isTyping = false;
+      if (callback) callback();
     }
   }, speed);
 }
 
 function handleClick() {
+  // ⛔ กำลังพิมพ์อยู่ ไม่ให้กดซ้ำ
+  if (isTyping) return;
+
   const textEl = document.getElementById("loveText");
   const btn = document.getElementById("loveBtn");
 
@@ -61,28 +41,31 @@ function handleClick() {
     textEl.className = "text-effect";
     typeText(textEl, "ดีใจนะ ที่ได้คุยกับเธอ 🌸");
     btn.innerHTML = "กดอีกที 😊";
-  } else if (clickCount === 2) {
+  } 
+  else if (clickCount === 2) {
     textEl.className = "text-effect";
     typeText(textEl, "คุยกับเธอแล้วรู้สึกสบายใจมากเลย 🙂");
     btn.innerHTML = "กดอีกนิดนะ 💗";
-  } else if (clickCount === 3) {
+  } 
+  else if (clickCount === 3) {
     textEl.className = "text-effect";
     typeText(
       textEl,
       "เค้าชอบเธอนะ🫶🏻💗🌷",
       70,
+      () => {
+        btn.style.display = "none"; // ซ่อนปุ่มหลังพิมพ์เสร็จ
+      }
     );
-    btn.style.display = "none"; // ซ่อนปุ่ม
   }
 }
 
-// 🌸 ดอกไม้รัวเต็มจอ
+// 🌸 ดอกไม้รัวเต็มจอ (อันนี้ใช้ได้เหมือนเดิม)
 setInterval(() => {
   for (let i = 0; i < 5; i++) {
-    // จำนวนต่อรอบ (เพิ่มได้)
     createFlower();
   }
-}, 120); // ยิ่งน้อย = ยิ่งรัว
+}, 120);
 
 function createFlower() {
   const container = document.querySelector(".flowers");
