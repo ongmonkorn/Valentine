@@ -63,13 +63,13 @@ function handleClick() {
     btn.innerHTML = "กดอีกที 😊";
   } else if (clickCount === 2) {
     textEl.className = "text-effect";
-    typeText(textEl, "ช่วงนี้คุยเธอกับแล้วรู้สึกสบายใจมากเลย 🙂");
+    typeText(textEl, "คุยกับเธอแล้วรู้สึกสบายใจมากเลย 🙂");
     btn.innerHTML = "กดอีกนิดนะ 💗";
   } else if (clickCount === 3) {
     textEl.className = "text-effect";
     typeText(
       textEl,
-      "ไม่รู้ว่าอนาคตจะเป็นยังไง แต่ตอนนี้เค้าอยากมีเธออยู่ในทุกวันนะ 🌷",
+      "เค้าชอบเธอนะ🫶🏻💗🌷",
       70,
     );
     btn.style.display = "none"; // ซ่อนปุ่ม
