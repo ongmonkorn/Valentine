@@ -63,7 +63,7 @@ function handleClick() {
     btn.innerHTML = "กดอีกที 😊";
   } else if (clickCount === 2) {
     textEl.className = "text-effect";
-    typeText(textEl, "ช่วงนี้คุยกับแล้วรู้สึกสบายใจมากเลย 🙂");
+    typeText(textEl, "ช่วงนี้คุยเธอกับแล้วรู้สึกสบายใจมากเลย 🙂");
     btn.innerHTML = "กดอีกนิดนะ 💗";
   } else if (clickCount === 3) {
     textEl.className = "text-effect";
